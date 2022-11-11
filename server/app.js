@@ -1,3 +1,4 @@
+const authAPI = require("./src/config/config.json") 
 const express = require('express')
 const axios = require('axios');
 const app = express()
@@ -9,10 +10,14 @@ var config = {
     method: 'get',
     url: 'https://api.twitch.tv/helix/games?name=',
     headers: {
-        'Authorization': 'Bearer wmv4cnf8xucwllspw04269c9e82rtf',
-        'Client-ID': 'x7jn4h2zd6wv0xtaegj3zg6oohxt3f',
-        'x7jn4h2zd6wv0xtaegj3zg6oohxt3f': ''
+        Authorization: authAPI.Authorization,
+        'Client-ID': authAPI["Client-ID"],
+        x7jn4h2zd6wv0xtaegj3zg6oohxt3f : authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
     },
+    // headers: { 
+    //     'Authorization': 'Bearer wmv4cnf8xucwllspw04269c9e82rtf', 
+    //     'Client-ID': 'x7jn4h2zd6wv0xtaegj3zg6oohxt3f'
+    //   },
     data: data
 };
 
@@ -35,8 +40,6 @@ app.get('/search/:name', (req, res) => {
             res.send(error)
         });
 })
-
-
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
