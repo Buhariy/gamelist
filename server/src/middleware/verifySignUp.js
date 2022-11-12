@@ -38,4 +38,4 @@ checkDuplicatePseudoOrEmail = (req, res, next) => {
     checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
   };
 
-  module.exports = verifySignUp;
+  module.exports = verifySignUp;   
