@@ -4,6 +4,7 @@ module.exports = {
     PASSWORD: "",
     DB: "gamelist",
     dialect: "mysql",
+    PORT: '3308',
     // pool: {
     //   max: 5,
     //   min: 0,
