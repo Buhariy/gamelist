@@ -1,8 +1,8 @@
 const authAPI = require("./src/config/config.json") 
 const express = require('express')
 const axios = require('axios');
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 var qs = require('qs');
 var data = qs.stringify({});
 
@@ -14,10 +14,6 @@ var config = {
         'Client-ID': authAPI["Client-ID"],
         x7jn4h2zd6wv0xtaegj3zg6oohxt3f : authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
     },
-    // headers: { 
-    //     'Authorization': 'Bearer wmv4cnf8xucwllspw04269c9e82rtf', 
-    //     'Client-ID': 'x7jn4h2zd6wv0xtaegj3zg6oohxt3f'
-    //   },
     data: data
 };
 
@@ -45,28 +41,27 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-const dbConfig = require("./src/config/dbconfig")
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    port : dbConfig.PORT
-    // operatorsAliases: false,
+const db = require("./src/models")
+const User = db.user
+db.sequelize.sync()
+    .then(() => {
+        // initData();
+      console.log("Synced db.");
+    })
+    .catch((err) => {
+      console.log("Failed to sync db: " + err.message);
+    });
 
-    // pool: {
-    //     max: dbConfig.pool.max,
-    //     min: dbConfig.pool.min,
-    //     acquire: dbConfig.pool.acquire,
-    //     idle: dbConfig.pool.idle
-    // }
-});
-
-const db = {};
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-db.sequelize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
- }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
- });
+/* 
+    function init pour la table user 
+    ApiGameId : ssbu(504461), miecraft(27471), dofus(20596), wow(18122), lol(19496)
+*/
+function initData(){
+    User.create({
+        email:"user@user.com",
+        password:"password",
+        pseudo:"skaz",
+        profilePicture:"C:\Users\pc\Pictures\emote twitch\Illustration_sans_titre.png",
+        creationDate: Date.now(),
+    });
+}
