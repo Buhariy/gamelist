@@ -23,7 +23,7 @@ db.sequelize = sequelize;
 //     console.error('Unable to connect to the database: ', error);
 // });
 db.user = require("./users.model")(sequelize, Sequelize);
-db.collection = require("./collection.model")(sequelize,Sequelize);
+db.collection = require("./collection.model")(sequelize, Sequelize);
 
 db.user.hasMany(db.collection, { as: "collection" });
 db.collection.belongsTo(db.user, {

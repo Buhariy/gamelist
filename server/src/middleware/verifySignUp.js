@@ -4,9 +4,14 @@ const User = db.user;
 
 checkDuplicatePseudoOrEmail = (req, res, next) => {
     // Username
+    console.log("dans la fonction de merde");
+    console.log("dans la fonction de merde");
+    console.log("dans la fonction de merde");
+    console.log("dans la fonction de merde");
+    console.log(req.body);
     User.findOne({
       where: {
-        pseudo: req.body.pseudo
+        pseudo: req.body.pseudo,
       }
     }).then(user => {
       if (user) {
@@ -19,7 +24,7 @@ checkDuplicatePseudoOrEmail = (req, res, next) => {
       // Email
       User.findOne({
         where: {
-          email: req.body.email
+          email: req.body.email,
         }
       }).then(user => {
         if (user) {
@@ -35,7 +40,7 @@ checkDuplicatePseudoOrEmail = (req, res, next) => {
   };
 
   const verifySignUp = {
-    checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
+    checkDuplicatePseudoOrEmail: checkDuplicatePseudoOrEmail,
   };
 
   module.exports = verifySignUp;   

@@ -2,6 +2,11 @@ const authAPI = require("./src/config/config.json")
 const express = require('express')
 const axios = require('axios');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+require('./src/routes/user.routes')(app);
+require('./src/routes/auth.routes')(app);
 const port = 3000;
 var qs = require('qs');
 var data = qs.stringify({});
@@ -16,6 +21,9 @@ var config = {
     },
     data: data
 };
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.get('/search/:name', (req, res) => {
     var name = req.params.name
@@ -46,7 +54,7 @@ const User = db.user
 db.sequelize.sync()
     .then(() => {
         // initData();
-      console.log("Synced db.");
+      console.log("Drop and Resynced db.");
     })
     .catch((err) => {
       console.log("Failed to sync db: " + err.message);

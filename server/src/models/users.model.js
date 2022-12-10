@@ -39,9 +39,6 @@ module.exports = (sequelize, Sequelize) => {
       profilePicture: {
         type: Sequelize.STRING
       },
-      creationDate: {
-        type: Sequelize.DATE
-      },
     });
   
     return user;
