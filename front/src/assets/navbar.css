@@ -1,0 +1,26 @@
+.nabarDiv{
+    background-color: blueviolet;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+}
+.leftSide {
+    text-align: left;
+}
+.rightSide {
+    text-align: right;
+}
+.NavLi{
+    list-style: none;
+    
+}
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+    margin-right: 10px;
+}
+
+.nabarDiv #RigthLi{
+    text-align: right;
+}
