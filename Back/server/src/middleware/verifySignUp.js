@@ -4,10 +4,6 @@ const User = db.user;
 
 checkDuplicatePseudoOrEmail = (req, res, next) => {
     // Username
-    console.log("dans la fonction de merde");
-    console.log("dans la fonction de merde");
-    console.log("dans la fonction de merde");
-    console.log("dans la fonction de merde");
     console.log(req.body);
     User.findOne({
       where: {

@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
             pseudo: req.body.pseudo,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            profilePicture:"C:\Users\pc\Pictures\emote twitch\Illustration_sans_titre.png",
+            // profilePicture:"C:\Users\pc\Pictures\emote twitch\Illustration_sans_titre.png",
             creationDate: Date.now(),
           });
           res.status(200).send("User created")

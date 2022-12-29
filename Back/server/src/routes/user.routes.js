@@ -17,4 +17,6 @@ module.exports = function(app) {
     [authJwt.verifyToken],
     controller.userBoard
   );
+
+  app.post("/collection",controller.userBoard)
 };
