@@ -32,10 +32,11 @@ export default function Gamelist() {
             {
                 list.map(g => {
                     formatingGame(g)
+                    console.log(g);
                     return (
                         // <React.Fragment key={g.id}>
                         <>
-                            <CardGame key={g.id} name={g.name} link={g.box_art_url} />
+                            <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id} />
                         </>
                         // </React.Fragment> 
                         );

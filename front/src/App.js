@@ -7,22 +7,35 @@ import MyCollection from './components/myCollection.component'
 import Navbar from './components/navbar.component';
 import Gamelist from './components/game-list.component';
 import SignUp from './components/signUp.component';
+import SearchBar from './components/searchBar.component';
 
 function setToken(userToken){
-  sessionStorage.getItem('accessToken', JSON.stringify(userToken))
+  sessionStorage.setItem('accessToken', JSON.stringify(userToken))
 }
 
 function getToken(){
-  const tokenString = sessionStorage.getItem('accessToken');
-  const userToken = JSON.stringify(tokenString);
-  return userToken?.accessToken
+  var tokenString = sessionStorage.getItem('accessToken');
+  // console.log(tokenString);
+  // const userToken = JSON.stringify(tokenString);
+  tokenString = JSON.parse(tokenString)
+  return tokenString
 }
 export default function App() {
   const token = getToken();
-    // if(!token){
+    // console.log(token);
+    if(!token){
       
-    //   return <Login setToken={setToken} />
-    // }
+      // return <Login setToken={setToken} />
+      return (
+        <>
+          <Gamelist />
+          {/* <Navbar /> */}
+          <Login setToken={setToken}/>
+        </>
+      )
+    }
+    // console.log(JSON.stringify(token));
+    // console.log((token.id));
     return (
     <>
     <Router>
@@ -30,6 +43,7 @@ export default function App() {
       <Routes>
         <Route path='/Signin' element={<Login setToken={setToken} />}/>      
         <Route path='/Collection' element={<MyCollection /> }/>      
+        <Route path='/' element={<SearchBar />}/>      
         <Route path='/Home' element={<Gamelist /> }/>      
         <Route path='/Signup' element={<SignUp /> }/>      
       </Routes>

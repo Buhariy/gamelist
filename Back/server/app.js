@@ -16,6 +16,7 @@ app.use(cors(corsOptions));
 
 require('./src/routes/user.routes')(app);
 require('./src/routes/auth.routes')(app);
+require('./src/routes/collections.routes')(app);
 const port = 3000;
 var qs = require('qs');
 var data = qs.stringify({});
