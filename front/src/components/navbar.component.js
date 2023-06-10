@@ -1,26 +1,56 @@
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink  } from "react-router-dom";
 import SearchBar from "./searchBar.component";
 import './../assets/navbar.css'
-export default function Navbar() {
+
+
+function getUser() {
+    var tokenString = sessionStorage.getItem('accessToken');
+    tokenString = JSON.parse(tokenString)
+    return tokenString
+}
+
+export default function Navbar(props) {
+    const [isLogged, setLogged] = useState(false);
+
+    useEffect(() => {
+        sessionStorage.getItem('accessToken');
+        let user = getUser();
+        if(user != null && user.accessToken.length > 50){
+            setLogged(true);
+        }else{
+            setLogged(false);
+        }
+    }, []);
+    console.log(props.message)
     return (
         <div className="nabarDiv">
-            <li className="NavLi">
-                <Link to={"/Home"}>Home</Link>
+          
+           <li className="NavLi"> 
+                <NavLink to={"/Home"}>Home</NavLink>
             </li>
-            <li className="NavLi">
-                <Link to={"/Collection"}>Collection</Link>
+            {isLogged ?
+            <li className="NavLi" id="RigthLi">
+                <NavLink to={"/Collection"}>Collection</NavLink>
             </li>
-
-            <li>
-                {/* <Link to={"/accueil"}>Sign In</Link> */}
+             : null}
+             <li className="NavLi" id="RigthLi">
+                {/* <NavLink to={"/accueil"}>Sign In</NavLink> */}
                 <SearchBar />
+            </li> 
+            <li className="NavLi" id="RigthLi">
+                <NavLink to={"/SignUp"}>Inscription</NavLink>
             </li>
             <li className="NavLi" id="RigthLi">
-                <Link to={"/SignUp"}>Inscription</Link>
+                <NavLink to={"/Signin"}>Connexion</NavLink>
             </li>
+            {isLogged ?
             <li className="NavLi" id="RigthLi">
-                <Link to={"/Signin"}>Connexion</Link>
+                <NavLink to={"/Logout"}>Déconnexion</NavLink>
             </li>
+            :
+            null}
+            
         </div>
     );
 

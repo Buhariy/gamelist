@@ -12,4 +12,5 @@ module.exports = function(app) {
 
 
   app.post("/addCollection", controller.addToCollections);
+  app.post("/deleteCollection",controller.deleteToCollection);
 };

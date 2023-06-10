@@ -56,7 +56,8 @@ exports.signup = (req, res) => {
             pseudo: user.pseudo,
             email: user.email,
             profilePicture: user.profilePicture,
-            accessToken: token
+            accessToken: token,
+            message : "connected"
         });
       })
       .catch(err => {

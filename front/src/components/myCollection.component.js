@@ -26,8 +26,15 @@ export default function MyCollection() {
     })
     .then(data => data.json());
     setList(res);
-
   }
+
+  const DeleteToList = (id) => {
+    let newList = list;
+    // newList.splice(game);
+    newList = newList.filter(g => g.id != id);
+    setList(newList);
+  };
+
   return(
     <div >
       <h2>Ma liste</h2>
@@ -37,7 +44,7 @@ export default function MyCollection() {
           return (
           <>
           {/* <p>{gameCollec.name}</p> */}
-            <CardGame key={gameCollec.id} name={gameCollec.name} link={gameCollec.box_art_url} gameId={gameCollec.gameId}/>
+            <CardGame key={gameCollec.id} name={gameCollec.name} link={gameCollec.box_art_url} gameId={gameCollec.id} inMyCollection={true} ToDelete={DeleteToList} />
           </>
           );
         })

@@ -1,41 +1,76 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa"
+import React, { useState,useEffect } from "react";
+import { FaMinus, FaPlus } from "react-icons/fa"
 import './../assets/cards.css'
 
-function getUserId() {
+function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
     tokenString = JSON.parse(tokenString)
-    return tokenString.id
+    return tokenString
 }
 
 
 
 export default function CardGame(props) {
-    const [gameId,setGameId] = useState(props.gameId);
+    const [gameId, setGameId] = useState(props.gameId);
+    const [isLogged, setLogged] = useState(false);
 
-    const handleSubmit = (e,gameId) => {
-        console.log(gameId);
-        console.log(e.target.value);
-        const data = JSON.stringify({ gameId: parseInt(gameId), userId: getUserId() });
-        const res = axios.post('http://localhost:3000/addCollection', data, {
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
+    useEffect(() => {
+        let user = getUser();
+        if(user != null && user.accessToken.length > 50){
+            setLogged(true);
+        }else{
+            setLogged(false);
+        }
+    }, []);
+
+    const handleSubmit = (e, gameId,action) => {
+        let user = getUser();
+        if (user != null && user.id != null) {
+            setLogged(true);
+
+            const data = JSON.stringify({ gameId: parseInt(gameId), userId: user.id });
+            console.warn(data+ " ici we")
+            if(action){
+                const res = axios.post('http://localhost:3000/addCollection', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+            }else if(!action){
+                const res = axios.post('http://localhost:3000/deleteCollection', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            props.ToDelete(props.gameId);
+            }
+            
+        }
     }
+
     return (
         <div class="card" key={props.id}>
             {/* <Image src="img_avatar.png" alt="Avatar" style="width:100%"> */}
             <img src={props.link} alt={props.name} />
             <div class="container">
                 <h4><b id="acontainer">{props.name}</b></h4>
-                <FaPlus
-                onClick={
-                    // setGameId(props.gameId)
-                     e => handleSubmit(e,props.gameId)
+                {props.inMyCollection ?
+                    <FaMinus
+                        onClick={
+                            e=> handleSubmit(e, props.gameId,false)
+                        }
+                        />
+                    :
+                    <>
+                        <FaPlus
+                            onClick={
+                                // setGameId(props.gameId)
+                                e => handleSubmit(e, props.gameId,true)
+                            }
+                        />
+                    </>
                 }
-                />
             </div>
         </div>
     );

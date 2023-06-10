@@ -1,42 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
 
 
+
 async function loginUser(credentials) {
-    return fetch ('http://localhost:3000/api/auth/signin', {
-        method: 'POST', 
+    return fetch('http://localhost:3000/api/auth/signin', {
+        method: 'POST',
         headers: {
-            'Content-Type':'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
     })
-    .then(data => data.json())
+        .then(data => {
+            if (data.ok) {
+                window.location.href = '/home';
+                return data.json();
+            }
+            else {
+                throw new Error('Erreur de connexion');
+            }
+        });
 }
 
-export default function Login({setToken}) {
+export default function Login({ setToken }) {
+    const formRef = useRef(null);
     const [pseudo, setPseudoOrMail] = useState();
     const [password, setPassword] = useState();
+    const [error, setError] = useState(null);
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            pseudo,
-            password
-        });
-        setToken(token);
-        // return <p>{token}</p>
+        try {
+            const form = formRef.current;
+            const token = await loginUser({
+                pseudo: form.pseudo.value,
+                password: form.password.value
+            });
+            setToken(token); // Utilisez le setter provenant des props si nécessaire
+        } catch (error) {
+            setError(error.message)
+        }
+    };
 
-        
-    }
     return (
-        <form onSubmit={handleSubmit}>
+        <form ref={formRef} onSubmit={handleSubmit}>
+            {error && <p>{error}</p>}
             <label>
                 <p>Pseudo</p>
-                <input type="text" onChange={e => setPseudoOrMail(e.target.value)}/>
+                <input type="text" name="pseudo" onChange={e => setPseudoOrMail(e.target.value)} />
             </label>
             <label>
                 <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)} />
+                <input type="password" name="password" onChange={e => setPassword(e.target.value)} />
             </label>
             <div>
                 <button type="submit">Submit</button>
@@ -45,6 +60,6 @@ export default function Login({setToken}) {
     )
 }
 
-Login.prototype = {
+Login.propTypes = {
     setToken: PropTypes.func.isRequired
 }
