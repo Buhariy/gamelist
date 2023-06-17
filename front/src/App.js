@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { Component, useState } from 'react';
+import React, { Component, useState,useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './components/login.component';
 import MyCollection from './components/myCollection.component'
@@ -20,7 +20,15 @@ function getToken() {
   return tokenString
 }
 export default function App() {
-  const token = getToken();
+
+  useEffect(() => {
+    const token = getToken();
+    if (token && token.message === "connected") {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
   // if(token == "null"){
   //   token["message"] = "nothing";
   // }
@@ -35,18 +43,21 @@ export default function App() {
   //   )
   // }
   //islogged={token.message == "connected" ? true : false }
-  console.log(token);
+  const [isLogged,setIsLogged] = useState(false);
+  const handleLogout = () => {
+    setIsLogged(false);
+  }
   return (
       <Router>
         <div>
-          <Navbar  />
+          <Navbar isLogged={isLogged} />
           <Routes>
             <Route path='/Signin' element={<Login setToken={setToken} />} />
             <Route path='/Collection' element={<MyCollection />} />
             {/* <Route path='/' element={<SearchBar />} /> */}
             <Route path='/Home' element={<Gamelist />} />
             <Route path='/Signup' element={<SignUp />} />
-            <Route path='/Logout' element={<Logout />} />
+            <Route path='/Logout' element={<Logout onLogout={handleLogout}/>} />
           </Routes>
         </div>
         {/* <Routes>

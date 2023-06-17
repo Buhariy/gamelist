@@ -14,6 +14,7 @@ async function loginUser(credentials) {
         .then(data => {
             if (data.ok) {
                 window.location.href = '/home';
+                
                 return data.json();
             }
             else {
