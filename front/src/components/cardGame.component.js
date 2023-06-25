@@ -55,21 +55,25 @@ export default function CardGame(props) {
             <img src={props.link} alt={props.name} />
             <div class="container">
                 <h4><b id="acontainer">{props.name}</b></h4>
-                {props.inMyCollection ?
-                    <FaMinus
-                        onClick={
-                            e=> handleSubmit(e, props.gameId,false)
-                        }
-                        />
-                    :
-                    <>
-                        <FaPlus
+                {props.NoIcon ?
+                 null
+                  : 
+                    (props.inMyCollection ?
+                        <FaMinus
                             onClick={
-                                // setGameId(props.gameId)
-                                e => handleSubmit(e, props.gameId,true)
+                                e=> handleSubmit(e, props.gameId,false)
                             }
-                        />
-                    </>
+                            />
+                        :
+                        <>
+                            <FaPlus
+                                onClick={
+                                    // setGameId(props.gameId)
+                                    e => handleSubmit(e, props.gameId,true)
+                                }
+                            />
+                        </>
+                    )
                 }
             </div>
         </div>

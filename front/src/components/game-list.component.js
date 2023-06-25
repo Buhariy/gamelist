@@ -8,7 +8,12 @@ function getUser() {
     return tokenString
 }
 
-
+function clean(game) {
+if(game.name == "Just Chatting" || "Sports"){
+    return false
+}
+return true
+}
 
 export default function Gamelist() {
     const [list, setList] = useState([]);
@@ -19,7 +24,7 @@ export default function Gamelist() {
         let user = getUser();
         if (user != null && user.accessToken.length > 50) {
             setLogged(true);
-             fetchCollection();
+            fetchCollection();
         } else {
             setLogged(false);
         }
@@ -28,31 +33,20 @@ export default function Gamelist() {
 
     async function fetchCollection() {
 
-      const res = await fetch ('http://localhost:3000/collection', {
-        method: 'POST', 
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({id: getUser().id})
-    })
-    .then(data => data.json());
-    setCollecList(res);
-  }
+        const res = await fetch('http://localhost:3000/collection', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: getUser().id })
+        })
+            .then(data => data.json());
+        setCollecList(res);
+    }
 
     function formatingGame(game) {
-            // if(game.id == "509658"){
-            //     console.warn(game.id)
-            //     console.warn(collectList[2].id)
-            // }
-            
         game.box_art_url = game.box_art_url.replace('{width}', 170)
         game.box_art_url = game.box_art_url.replace('{height}', 230)
-        // collectList.forEach(g => {
-        //     if(g.id == game.id){
-        //         g["inMyCollection"] = true
-        //     }
-        // });
-
         return game
     }
 
@@ -76,14 +70,13 @@ export default function Gamelist() {
             {
                 list.map(g => {
                     formatingGame(g)
-                    console.log(g);
                     return (
                         // <React.Fragment key={g.id}>
                         <>
-                            {isLogged ? 
-                                <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id}  />
-                                : 
+                            {isLogged ?
                                 <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id} />
+                                :
+                                <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id} NoIcon={true} />
                             }
                         </>
                         // </React.Fragment> 

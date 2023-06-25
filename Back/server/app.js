@@ -12,6 +12,8 @@ const corsOptions = {
     optionSuccessStatus: 200,
 }
 
+
+
 app.use(cors(corsOptions));
 
 require('./src/routes/user.routes')(app);
@@ -66,17 +68,28 @@ app.get('/search/:name', (req, res) => {
         });
 })
 
-app.get('/home', (req, res) => {
-    axios(getGameReq)
-        .then(function (response) {
-            let data = JSON.stringify(response.data)
-            console.log("req 100 game");
-            // console.log(data.find(g => g.id == "509658"));
-            res.send(data)
-        })
-        .catch(function (error) {
-            res.send(error);
-        })
+app.get('/home', async (req, res) => {
+    // axios(getGameReq)
+    //     .then(function (response) {
+    //         let data = JSON.stringify(response.data)
+    //         const filtereddata = await datafilter(data);
+    //         console.log("req 100 game");
+    //         // console.log(data.find(g => g.id == "509658"));
+    //         res.send(filtereddata)
+    //     })
+    //     .catch(function (error) {
+    //         res.send(error);
+    //     })
+    try {
+        const response = await axios(getGameReq);
+        let data = JSON.stringify(response.data);
+        const filtereddata = await datafilter(data);
+        console.log("req 100 game");
+        // console.log(data.find(g => g.id == "509658"));
+        res.send(filtereddata);
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 app.listen(port, () => {
@@ -115,3 +128,10 @@ function arrayRemove(arr, value) {
         return ele.name != value;
     });
 }
+
+async function datafilter(data){
+    // data = JSON.stringify(data)
+    // console.log(Object.keys(data.data[0]).length);
+    return data;
+}
+
