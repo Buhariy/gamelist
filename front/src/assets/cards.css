@@ -16,19 +16,34 @@
   /* Add some padding inside the card container */
   .container {
     padding: 2px 16px;
+    /* height: 70px; */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap: break-word;
   }
-
- 
-  /* #acontainer{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  } */
   .cardgrp {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+  }
+  #acontainer {
+    overflow: auto;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navigationDiv {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .navigateIcon {
+    font-size: 50px;
+    
   }

@@ -43,7 +43,28 @@ var getGameReq = {
         x7jn4h2zd6wv0xtaegj3zg6oohxt3f: authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
     },
     data: data
-}
+};
+var getNextReq = {
+    method: 'get',
+    url: 'https://api.twitch.tv/helix/games/top?first=100&after=',
+    headers: {
+        Authorization: authAPI.Authorization,
+        'Client-ID': authAPI["Client-ID"],
+        x7jn4h2zd6wv0xtaegj3zg6oohxt3f: authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
+    },
+    data: data
+};
+
+var getBeforeReq = {
+    method: 'get',
+    url: 'https://api.twitch.tv/helix/games/top?first=100&before=',
+    headers: {
+        Authorization: authAPI.Authorization,
+        'Client-ID': authAPI["Client-ID"],
+        x7jn4h2zd6wv0xtaegj3zg6oohxt3f: authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
+    },
+    data: data
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -83,6 +104,8 @@ app.get('/home', async (req, res) => {
     try {
         const response = await axios(getGameReq);
         let data = JSON.stringify(response.data);
+        let dataParsed = JSON.parse(data);
+        cursor = dataParsed.pagination.cursor
         const filtereddata = await datafilter(data);
         console.log("req 100 game");
         // console.log(data.find(g => g.id == "509658"));
@@ -90,7 +113,46 @@ app.get('/home', async (req, res) => {
     } catch (error) {
         res.send(error);
     }
-})
+});
+
+app.get('/next/:cursor', async (req, res) => {
+    console.log(req.params.cursor);
+    try {
+        const response = await axios.get(getNextReq.url + req.params.cursor, {
+            headers: {
+                Authorization: authAPI.Authorization,
+                'Client-ID': authAPI["Client-ID"],
+                x7jn4h2zd6wv0xtaegj3zg6oohxt3f: authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
+            }
+        });
+
+        let data = JSON.stringify(response.data);
+        const filteredData = await datafilter(data);
+        res.send(filteredData);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
+app.get('/before/:cursor', async (req, res) => {
+    try {
+        const response = await axios.get(getBeforeReq.url + req.params.cursor, {
+            headers: {
+                Authorization: authAPI.Authorization,
+                'Client-ID': authAPI["Client-ID"],
+                x7jn4h2zd6wv0xtaegj3zg6oohxt3f: authAPI.x7jn4h2zd6wv0xtaegj3zg6oohxt3f
+            }
+        });
+
+        let data = JSON.stringify(response.data);
+        const filteredData = await datafilter(data);
+        res.send(filteredData);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

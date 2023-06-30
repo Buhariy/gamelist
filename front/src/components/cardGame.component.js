@@ -54,7 +54,7 @@ export default function CardGame(props) {
             {/* <Image src="img_avatar.png" alt="Avatar" style="width:100%"> */}
             <img src={props.link} alt={props.name} />
             <div class="container">
-                <h4><b id="acontainer">{props.name}</b></h4>
+                <h4 id="acontainer"><b >{props.name}</b></h4>
                 {props.NoIcon ?
                  null
                   : 
