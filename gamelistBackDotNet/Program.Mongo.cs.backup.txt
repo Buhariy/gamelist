@@ -1,0 +1,33 @@
+//------------------------------ PARTIE MONGODB
+
+
+//class Program
+//{
+//    static void Main(string[] args)
+//    {
+//        string connectionString = "mongodb://localhost:27017";
+//        MongoClient client = new MongoClient(connectionString);
+
+//        var db = client.GetDatabase("Gamelist");
+//        var collectionUsers = db.GetCollection<BsonDocument>("Users");
+
+//        var documents = collectionUsers.Find(new BsonDocument()).ToList();
+//        var newUserDocument = new BsonDocument
+//        {
+//            {"pseudo","User123" },
+//            {"password",$"mdp123{DateTime.Now.Ticks}" },
+//            {"email","email@email.com" },
+//            {"profilePicture", "a/a/a/a/a/a/a.png" },
+//            {"games",new BsonArray()}
+
+//        };
+
+//        collectionUsers.InsertOne(newUserDocument);
+
+
+//        foreach ( var document in documents )
+//        {
+//            Console.WriteLine(document);
+//        }
+//    }
+//}

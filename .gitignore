@@ -1,2 +1,10 @@
+#Server js
 node_modules
 Back/server/src/config
+
+#Server iis
+gamelistBackDotNet/ServerBackEnd/.vs
+gamelistBackDotNet/ServerBackEnd/ServerBackEnd/bin
+gamelistBackDotNet/ServerBackEnd/ServerBackEnd/obj
+gamelistBackDotNet/ServerBackEnd/ServerBackEnd/configuration/config.json
+gamelistBackDotNet/ServerBackEnd/ServerBackEnd/ServerBackEnd.csproj.user
