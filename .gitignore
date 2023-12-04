@@ -8,3 +8,5 @@ gamelistBackDotNet/ServerBackEnd/ServerBackEnd/bin
 gamelistBackDotNet/ServerBackEnd/ServerBackEnd/obj
 gamelistBackDotNet/ServerBackEnd/ServerBackEnd/configuration/config.json
 gamelistBackDotNet/ServerBackEnd/ServerBackEnd/ServerBackEnd.csproj.user
+gamelistBackDotNet/ServerBackEnd/ServerBackEnd/appsettings.json
+gamelistBackDotNet\ServerBackEnd\ServerBackEnd\appsettings.json

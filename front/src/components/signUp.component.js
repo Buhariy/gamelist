@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios';
+import config from "./../config/config.json"
 
 export default function SignUp() {
     const [pseudo, setPseudo] = useState();
@@ -9,7 +10,7 @@ export default function SignUp() {
     const handleSubmit = async e => {
         e.preventDefault();
         const data = JSON.stringify({pseudo: pseudo, email: email, password: password})
-        const res = await axios.post('http://localhost:3000/api/auth/signup',data,{
+        const res = await axios.post('http://localhost:' + config.port + '/api/auth/signup',data,{
             headers: {
                 'Content-Type':'application/json'
             },

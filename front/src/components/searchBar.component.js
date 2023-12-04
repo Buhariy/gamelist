@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import config from "./../config/config.json"
 
 export default function SearchBar() {
     const [searchInput, setSearchInput] = useState("");
@@ -17,7 +18,7 @@ export default function SearchBar() {
     }
 
     async function Search(searchInput) {
-        const response = await fetch('http://localhost:3000/search/' + searchInput, {
+        const response = await fetch('http://localhost:' + config.port + '/search/' + searchInput, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

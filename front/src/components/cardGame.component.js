@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState,useEffect } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa"
 import './../assets/cards.css'
+import config from "./../config/config.json"
 
 function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
@@ -32,13 +33,13 @@ export default function CardGame(props) {
             const data = JSON.stringify({ gameId: parseInt(gameId), userId: user.id });
             console.warn(data+ " ici we")
             if(action){
-                const res = axios.post('http://localhost:3000/addCollection', data, {
+                const res = axios.post('http://localhost:' + config.port +'/addCollection', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 })
             }else if(!action){
-                const res = axios.post('http://localhost:3000/deleteCollection', data, {
+                const res = axios.post('http://localhost:' + config.port +'/deleteCollection', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

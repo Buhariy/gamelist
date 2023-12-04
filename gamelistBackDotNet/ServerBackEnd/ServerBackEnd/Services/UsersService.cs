@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ServerBackEnd.Models;
+using System.Security.Cryptography;
 
 namespace ServerBackEnd.Services
 {
@@ -22,8 +23,26 @@ namespace ServerBackEnd.Services
         public async Task<UserModel?> GetAsync(string id) =>
             await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-        public async Task<UserModel?> GetByPseudoOrEmail(string pseudoOrEmail) =>
-           await _usersCollection.Find(x => x.Pseudo == pseudoOrEmail || x.Email == pseudoOrEmail).FirstOrDefaultAsync();
+        public async Task<UserModel?> GetByPseudoOrEmail(string pseudo,string Email)
+        {
+            var filter = Builders<UserModel>.Filter.Or(
+                Builders<UserModel>.Filter.Eq(x => x.Pseudo, pseudo),
+                Builders<UserModel>.Filter.Eq(x => x.Email, Email)
+            );
+
+            var user = await _usersCollection.Find(filter).FirstOrDefaultAsync();
+            return user == null ? null : user;
+        }
+        public async Task<bool> CheckIfPseudoOrEmailExistsAsync(string pseudo, string email)
+        {
+            var filter = Builders<UserModel>.Filter.Or(
+                Builders<UserModel>.Filter.Eq(x => x.Pseudo, pseudo),
+                Builders<UserModel>.Filter.Eq(x => x.Email, email)
+            );
+
+            var user = await _usersCollection.Find(filter).FirstOrDefaultAsync();
+            return user != null; // Si user est différent de null, cela signifie que le pseudo ou l'email existe déjà.
+        }
 
         public async Task<bool> CheckPasswordAsync(UserModel user, string password)
         {
@@ -32,7 +51,6 @@ namespace ServerBackEnd.Services
                 return true;
             return false;
         }
-           
 
         public async Task CreateAsync(UserModel newUsers) =>
             await _usersCollection.InsertOneAsync(newUsers);
@@ -42,5 +60,29 @@ namespace ServerBackEnd.Services
 
         public async Task RemoveAsync(string id) =>
             await _usersCollection.DeleteOneAsync(x => x.Id == id);
+
+        public bool VerifyPassword(string storedHash, string enteredPassword)
+        {
+            // Conversion du hash stocké en bytes
+            byte[] hashBytes = Convert.FromBase64String(storedHash);
+
+            // Extraction du sel
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            // Calcul du hash à partir du mot de passe entré et du sel
+            var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, 10000);
+            byte[] enteredHash = pbkdf2.GetBytes(20);
+
+            // Comparaison des deux hashs
+            for (int i = 0; i < 20; i++)
+            {
+                if (hashBytes[i + 16] != enteredHash[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

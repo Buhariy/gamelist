@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useEffect,useState} from 'react';
 import CardGame from './cardGame.component';
+import config from "./../config/config.json"
 
 
 function getUserId(){
@@ -17,7 +18,7 @@ export default function MyCollection() {
 
     async function fetchCollection() {
 
-      const res = await fetch ('http://localhost:3000/collection', {
+      const res = await fetch ('http://localhost:' + config.port +'/collection', {
         method: 'POST', 
         headers: {
             'Content-Type':'application/json'
@@ -26,6 +27,7 @@ export default function MyCollection() {
     })
     .then(data => data.json());
     setList(res);
+    console.log(res)
   }
 
   const DeleteToList = (id) => {

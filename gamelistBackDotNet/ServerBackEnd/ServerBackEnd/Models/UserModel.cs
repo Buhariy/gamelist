@@ -19,9 +19,18 @@ namespace ServerBackEnd.Models
         public string Password { get; set; }
 
         [BsonElement("_games")]
-        public List<int> Games { get; set; }
+        public List<GameModel> Games { get; set; }
 
         [BsonElement("_profilePicture")]
         public string ProfilePicture { get; set; }
+
+        public UserModel(string pseudo, string email, string password, List<GameModel> Games)
+        { 
+            this.Pseudo = pseudo;
+            this.Email = email;
+            this.Password = password;
+            this.Games = Games;
+        }
+
     }
 }

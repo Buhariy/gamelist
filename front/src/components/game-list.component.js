@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CardGame from "./cardGame.component";
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md"
+import config from "./../config/config.json"
 
 function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
@@ -33,7 +34,7 @@ export default function Gamelist() {
     }, []);
 
     async function fetchCollection() {
-        const res = await fetch('http://localhost:3000/collection', {
+        const res = await fetch('http://localhost:' + config.port +'/collection', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ export default function Gamelist() {
 
     async function nextPage() {
         try {
-            const response = await axios.get('http://localhost:3000/next/' + pagi, {
+            const response = await axios.get('http://localhost:' + config.port +'/next/' + pagi, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -67,7 +68,7 @@ export default function Gamelist() {
 
     async function beforePage() {
         try {
-            const response = await axios.get('http://localhost:3000/before/' + pagi, {
+            const response = await axios.get('http://localhost:' + config.port +'/before/' + pagi, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -81,7 +82,7 @@ export default function Gamelist() {
     }
 
     async function fetchGames() {
-        const response = await fetch('http://localhost:3000/home', {
+        const response = await fetch('http://localhost:' + config.port +'/home', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

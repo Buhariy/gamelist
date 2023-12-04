@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
+import config from "./../config/config.json"
 
 
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3000/api/auth/signin', {
+    return fetch('http://localhost:' + config.port +'/api/auth/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -34,9 +35,10 @@ export default function Login({ setToken }) {
         try {
             const form = formRef.current;
             const token = await loginUser({
-                pseudo: form.pseudo.value,
+                PseudoOrEmail: form.pseudo.value,
                 password: form.password.value
             });
+            console.log(token)
             setToken(token); // Utilisez le setter provenant des props si nécessaire
         } catch (error) {
             setError(error.message)
