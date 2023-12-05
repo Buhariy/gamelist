@@ -2,7 +2,7 @@
 {
     public class UserResponseModel
     {
-        public string Id { get; set; }
+        public string id { get; set; }
         public string pseudo { get; set; }
         public string email { get; set; }
         public string profilePicture { get; set; }

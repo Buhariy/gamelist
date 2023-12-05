@@ -46,7 +46,7 @@ export default function MyCollection() {
           return (
           <>
           {/* <p>{gameCollec.name}</p> */}
-            <CardGame key={gameCollec.id} name={gameCollec.name} link={gameCollec.box_art_url} gameId={gameCollec.id} inMyCollection={true} ToDelete={DeleteToList} />
+            <CardGame key={gameCollec.id} name={gameCollec.Name} link={gameCollec.box_art_url} gameId={gameCollec.id} inMyCollection={true} ToDelete={DeleteToList} />
           </>
           );
         })

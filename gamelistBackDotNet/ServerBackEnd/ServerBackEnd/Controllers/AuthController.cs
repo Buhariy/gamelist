@@ -24,7 +24,6 @@ namespace ServerBackEnd.Controllers
             _tokenservice = tokenService;
         }
 
-
         [HttpPost("/api/auth/signup")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel user)
         {
@@ -65,12 +64,12 @@ namespace ServerBackEnd.Controllers
                 var token = _tokenservice.GenerateToken();
                 await Console.Out.WriteLineAsync(token);
                 UserResponseModel responseModel = new UserResponseModel();
-                responseModel.Id = user.Id;
+                responseModel.id = user.Id;
                 responseModel.pseudo = user.Pseudo;
                 responseModel.email = user.Email;
                 responseModel.profilePicture = user.ProfilePicture;
                 responseModel.accessToken = token;
-                responseModel.message = "";
+                responseModel.message = "connected";
                 string json = Newtonsoft.Json.JsonConvert.SerializeObject(responseModel);
                 await Console.Out.WriteLineAsync(json);
                 return Ok(json);

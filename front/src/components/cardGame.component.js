@@ -11,7 +11,6 @@ function getUser() {
 }
 
 
-
 export default function CardGame(props) {
     const [gameId, setGameId] = useState(props.gameId);
     const [isLogged, setLogged] = useState(false);
@@ -26,10 +25,13 @@ export default function CardGame(props) {
     }, []);
 
     const handleSubmit = (e, gameId,action) => {
+        console.warn("dedans chef")
         let user = getUser();
+        console.log(user.id);
         if (user != null && user.id != null) {
-            setLogged(true);
 
+            setLogged(true);
+            console.warn("dedans chef")
             const data = JSON.stringify({ gameId: parseInt(gameId), userId: user.id });
             console.warn(data+ " ici we")
             if(action){
