@@ -5,7 +5,7 @@ namespace ServerBackEnd.Models
     public class GameModel
     {
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("box_art_url")]

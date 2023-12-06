@@ -51,6 +51,34 @@ namespace ServerBackEnd.Controllers
             }
             return Ok();
         }
+
+        [HttpPost("/deleteCollection")]
+        public async Task<IActionResult> DeleteToGames([FromBody] GameResponseModel gameResponse)
+        {
+            HttpClient httpClient = new HttpClient();
+            HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, $"https://api.twitch.tv/helix/games?id={gameResponse.gameId}");
+            req.Headers.Add("Authorization", "Bearer bwyf8efb484b12penpbpdu57lg0umm");
+            req.Headers.Add("Client-ID", "x7jn4h2zd6wv0xtaegj3zg6oohxt3f");
+            req.Headers.Add("Cookie", "twitch.lohp.countryCode=FR; unique_id=vzI6cr0uM8Pfvh4ymsydAFb12htfF9b3; unique_id_durable=vzI6cr0uM8Pfvh4ymsydAFb12htfF9b3");
+            if (gameResponse != null)
+            {
+                GameModelList games = new GameModelList();
+                var res = await httpClient.SendAsync(req);
+                var jsonStr = await res.Content.ReadAsStringAsync();
+                games = System.Text.Json.JsonSerializer.Deserialize<GameModelList>(jsonStr);
+
+                var user = await _userservice.GetAsync(gameResponse.userId);
+                if (user != null && user.Id != null && games != null)
+                {
+                    var game = user.Games.FirstOrDefault(g => g.id == gameResponse.gameId.ToString());
+                    user.Games.Remove(game);
+                    _userservice.UpdateAsync(user.Id, user);
+                }
+            }
+            return Ok();
+        }
+
+
         [HttpPost("/collection")]
         public async Task<IActionResult> Collection([FromBody] FrontMyCollectionDataReq id)
         {

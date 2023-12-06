@@ -46,6 +46,7 @@ export default function CardGame(props) {
                     'Content-Type': 'application/json'
                 },
             })
+            console.warn("cardoGamuuuu " + props.gameId)
             props.ToDelete(props.gameId);
             }
             
