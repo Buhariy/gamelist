@@ -15,7 +15,7 @@ exports.signup = (req, res) => {
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
             // profilePicture:"C:\Users\pc\Pictures\emote twitch\Illustration_sans_titre.png",
-            creationDate: Date.now(),
+            // creationDate: Date.now(),
           });
           res.status(200).send("User created")
     } catch (error) {
@@ -27,7 +27,7 @@ exports.signup = (req, res) => {
   exports.signin = (req, res) => {
     User.findOne({
       where: {
-        pseudo: req.body.pseudo
+        pseudo: req.body.PseudoOrEmail
       }
     })
       .then(user => {
@@ -61,6 +61,7 @@ exports.signup = (req, res) => {
         });
       })
       .catch(err => {
+        console.log(err.message)
         res.status(500).send({ message: err.message });
       });
   };
