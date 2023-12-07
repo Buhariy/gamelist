@@ -1,3 +1,32 @@
 {
-    "port": 5001
+    "port": 5001,
+    "bannedGame":[
+        "Just Chatting",
+        "Music",
+        "Art",
+        "Casino Jackpot",
+        "Slots",
+        "I'm Only Sleeping",
+        "Sports",
+        "ASMR",
+        "Chess",
+        "Pools, Hot Tubs, and Beaches",
+        "Animals, Aquariums, and Zoos",
+        "Crypto",
+        "Always On",
+        "Virtual Casino",
+        "Games + Demos",
+        "Travel & Outdoors",
+        "Retro",
+        "Food & Drink",
+        "Poker",
+        "Politics",
+        "Talk Shows & Podcasts",
+        "Poker Online - Texas Holdem",
+        "Words On Stream",
+        "Développement de logiciels et de jeux",
+        "Twitch Plays",
+        "Bien-être et santé",
+        "Board Games"
+    ]
 }

@@ -24,6 +24,18 @@ namespace ServerBackEnd.Controllers
                 return Ok(twitchgameres);
             }
             return BadRequest();
-        } 
+        }
+
+        [HttpGet("/search/{name}")]
+        public async Task<IActionResult> GetSearch(string name)
+        {
+            await Console.Out.WriteLineAsync("GetSearch");
+            var twitchgameres = await _twitchService.GetSearch(name);
+            if (twitchgameres != null)
+            {
+                return Ok(twitchgameres);
+            }
+            return BadRequest();
+        }
     }
 }

@@ -35,6 +35,26 @@ namespace ServerBackEnd.Services
                 return null;
             }
         }
+
+        public async Task<Object> GetSearch(string name)
+        {
+            HttpClient http = new HttpClient();
+
+            var req = _requestFactory.CreateHttpRequestMessage(HttpMethod.Get);
+            req.RequestUri = new Uri(req.RequestUri.ToString() + $"/?name={name}");
+
+            HttpResponseMessage res = await http.SendAsync(req);
+            if (res.IsSuccessStatusCode)
+            {
+                var content = await res.Content.ReadAsStringAsync();
+                var games = JsonSerializer.Deserialize<Object>(content);
+                return games;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
     // Modèle pour la réponse JSON des jeux Twitch

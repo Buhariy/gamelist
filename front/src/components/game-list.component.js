@@ -7,14 +7,24 @@ import config from "./../config/config.json"
 function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
     tokenString = JSON.parse(tokenString)
-    return tokenString
+    return tokenString;
 }
 
-function clean(game) {
-    if (game.name == "Just Chatting" || "Sports") {
+async function clean(games) {
+    console.warn(games);
+    let cleanedGame = games.filter(isGame)
+    console.warn(cleanedGame);
+    return cleanedGame;
+}
+
+function isGame(game){
+    let val = "";
+    let bannedGame = config.bannedGame
+    val = bannedGame.find(bg => bg == game.name);
+    if(val == game.name)
         return false
-    }
-    return true
+    else if(val != game.name)
+        return true
 }
 
 export default function Gamelist() {
@@ -41,14 +51,15 @@ export default function Gamelist() {
             },
             body: JSON.stringify({ id: getUser().id })
         })
-            .then(data => data.json());
-        setCollecList(res);
+        .then(data => data.json());
+        const cleanedGame = clean(res);
+        setCollecList(cleanedGame);
     }
 
     function formatingGame(game) {
-        game.box_art_url = game.box_art_url.replace('{width}', 170)
-        game.box_art_url = game.box_art_url.replace('{height}', 230)
-        return game
+        game.box_art_url = game.box_art_url.replace('{width}', 170);
+        game.box_art_url = game.box_art_url.replace('{height}', 230);
+        return game;
     }
 
     async function nextPage() {
@@ -88,10 +99,12 @@ export default function Gamelist() {
                 'Content-Type': 'application/json'
             },
         });
-        const games = await response.json();
+        var games = await response.json();
         console.log((games.data));
         setPagi(games.pagination.cursor);
-        setList(games.data)
+        setList(games.data);
+        console.warn(await clean(games.data));
+        setList(await clean(games.data));
     }
 
     // console.log(list[0].inMyCollection);

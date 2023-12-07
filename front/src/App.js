@@ -8,6 +8,7 @@ import Navbar from './components/navbar.component';
 import Gamelist from './components/game-list.component';
 import SignUp from './components/signUp.component';
 import SearchBar from './components/searchBar.component';
+import SearchBarResults from './components/SearchBarResults.component';
 import Logout from './components/logout.component';
 
 function setToken(userToken) {
@@ -55,6 +56,7 @@ export default function App() {
             <Route path='/Signin' element={<Login setToken={setToken} />} />
             <Route path='/Collection' element={<MyCollection />} />
             {/* <Route path='/' element={<SearchBar />} /> */}
+            <Route path='/result' element={<SearchBarResults/>} />
             <Route path='/Home' element={<Gamelist />} />
             <Route path='/Signup' element={<SignUp />} />
             <Route path='/Logout' element={<Logout onLogout={handleLogout}/>} />

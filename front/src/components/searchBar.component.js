@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import config from "./../config/config.json"
 
 export default function SearchBar() {
     const [searchInput, setSearchInput] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -11,20 +13,31 @@ export default function SearchBar() {
 
     const handleKeyDown = (e) => {
         if(e.key === 'Enter'){
-            console.log("enter");
-            console.log(searchInput);
             Search(searchInput);
         }
     }
 
     async function Search(searchInput) {
-        const response = await fetch('http://localhost:' + config.port + '/search/' + searchInput, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
+        try {
+            const response = await fetch('http://localhost:' + config.port + '/search/' + searchInput, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
             // .then(data => data.json());
+            let data = await response.json();
+            console.warn(data.data[0])
+            let game = data.data[0]
+            game.box_art_url = game.box_art_url.replace('{width}', 170);
+            game.box_art_url = game.box_art_url.replace('{height}', 230);
+            data.data[0] = game
+            navigate('/result',{state: data});
+        } catch (error) {
+            console.warn(error.message)
+        }
+        
         // setCollecList(res);
     }
     return (
