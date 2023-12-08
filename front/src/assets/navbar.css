@@ -12,7 +12,6 @@
 }
 .NavLi{
     list-style: none;
-    
 }
 
 a {
@@ -23,4 +22,8 @@ a {
 
 .nabarDiv #RigthLi{
     text-align: right;
+}
+
+.nabarDiv #LeftLi{
+    text-align: left;
 }

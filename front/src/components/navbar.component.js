@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink  } from "react-router-dom";
 import SearchBar from "./searchBar.component";
-import './../assets/navbar.css'
+import './../assets/navbar.css';
 
 
-// function getUser() {
-//     var tokenString = sessionStorage.getItem('accessToken');
-//     tokenString = JSON.parse(tokenString)
-//     return tokenString
-// }
+function getUser() {
+    var tokenString = sessionStorage.getItem('accessToken');
+    tokenString = JSON.parse(tokenString)
+    return tokenString
+}
 
 export default function Navbar(props) {
+    const [userid,setId] = useState();
     // const [isLogged, setLogged] = useState(false);
 
     // useEffect(() => {
@@ -22,7 +23,16 @@ export default function Navbar(props) {
     //         setLogged(false);
     //     }
     // }, []);
-    console.log(props.isLogged);
+    
+    useEffect(() => {
+        let user = getUser();
+        if(user == "")
+            setId("")
+        else if(user != null)
+            setId(user.id)
+        console.warn(user)
+    }, []);
+
     return (
         <div className="nabarDiv">
           
@@ -54,7 +64,14 @@ export default function Navbar(props) {
             </li>
             :
             null}
-            
+            {
+                props.isLogged ?
+                <li className="NavLi" id="Le">
+                    <NavLink to={"/MyProfil/"+userid}>Mon profile</NavLink>
+                </li>
+                :
+                null
+            }
         </div>
     );
 

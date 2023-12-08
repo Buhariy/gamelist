@@ -10,6 +10,7 @@ import SignUp from './components/signUp.component';
 import SearchBar from './components/searchBar.component';
 import SearchBarResults from './components/SearchBarResults.component';
 import Logout from './components/logout.component';
+import MyProfil from './components/update-user.component';
 
 function setToken(userToken) {
   sessionStorage.setItem('accessToken', JSON.stringify(userToken))
@@ -21,30 +22,19 @@ function getToken() {
   return tokenString
 }
 export default function App() {
+  const [isLogged,setIsLogged] = useState(false);
+  const [id,setId] = useState("");
 
   useEffect(() => {
     const token = getToken();
     if (token && token.message === "connected") {
       setIsLogged(true);
+      setId(token.id);
+      console.log(token.id)
     } else {
       setIsLogged(false);
     }
   }, []);
-  // if(token == "null"){
-  //   token["message"] = "nothing";
-  // }
-  // if (!token) {
-
-  //   return (
-  //     <>
-  //       <Gamelist />
-  //       <Navbar />
-  //       <Login setToken={setToken}/>
-  //     </>
-  //   )
-  // }
-  //islogged={token.message == "connected" ? true : false }
-  const [isLogged,setIsLogged] = useState(false);
   const handleLogout = () => {
     setIsLogged(false);
   }
@@ -55,6 +45,7 @@ export default function App() {
           <Routes>
             <Route path='/Signin' element={<Login setToken={setToken} />} />
             <Route path='/Collection' element={<MyCollection />} />
+            <Route path={'/MyProfil/'+id} element={<MyProfil />} /> 
             {/* <Route path='/' element={<SearchBar />} /> */}
             <Route path='/result' element={<SearchBarResults/>} />
             <Route path='/Home' element={<Gamelist />} />
@@ -62,16 +53,6 @@ export default function App() {
             <Route path='/Logout' element={<Logout onLogout={handleLogout}/>} />
           </Routes>
         </div>
-        {/* <Routes>
-          <>
-            <Route path='/Signin' element={<Login setToken={setToken} />} />
-            <Route path='/Collection' element={<MyCollection />} />
-            <Route path='/' element={<SearchBar />} />
-            <Route path='/Home' element={<Gamelist />} />
-            <Route path='/Signup' element={<SignUp />} />
-            <Route path='/Logout' element={<Logout />} />
-          </>
-        </Routes> */}
       </Router>
   );
 }
