@@ -43,6 +43,25 @@ namespace ServerBackEnd.Services
             var user = await _usersCollection.Find(filter).FirstOrDefaultAsync();
             return user != null; // Si user est différent de null, cela signifie que le pseudo ou l'email existe déjà.
         }
+        public async Task<bool> CheckIfPseudoExistsAsync(string pseudo)
+        {
+            var filter = Builders<UserModel>.Filter.And(
+                Builders<UserModel>.Filter.Eq(x => x.Pseudo, pseudo)
+            );
+
+            var user = await _usersCollection.Find(filter).FirstOrDefaultAsync();
+            return user != null; // Si user est différent de null, cela signifie que le pseudo ou l'email existe déjà.
+        }
+
+        public async Task<bool> CheckIfEmailExistsAsync(string email)
+        {
+            var filter = Builders<UserModel>.Filter.And(
+                Builders<UserModel>.Filter.Eq(x => x.Email, email)
+            );
+
+            var user = await _usersCollection.Find(filter).FirstOrDefaultAsync();
+            return user != null; // Si user est différent de null, cela signifie que le pseudo ou l'email existe déjà.
+        }
 
         public async Task<bool> CheckPasswordAsync(UserModel user, string password)
         {
@@ -83,6 +102,27 @@ namespace ServerBackEnd.Services
                 }
             }
             return true;
+        }
+
+        public string HashPassword(string password)
+        {
+            // Générer un sel (salt) aléatoire
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            // Créer un dérivé de clé à partir du mot de passe et du sel (PBKDF2)
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            // Combinaison du sel et du hash dans un tableau de bytes
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            // Conversion du tableau de bytes en une chaîne hexadécimale
+            string hashedPassword = Convert.ToBase64String(hashBytes);
+
+            return hashedPassword;
         }
     }
 }

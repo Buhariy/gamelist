@@ -38,7 +38,7 @@ namespace ServerBackEnd.Controllers
             {
                 try
                 {
-                    newUser.Password = HashPassword(user.Password);
+                    newUser.Password = _usersService.HashPassword(user.Password);
                     await _usersService.CreateAsync(newUser);
                     return Ok("Utilisateur créé avec succés");
                 }
@@ -78,27 +78,6 @@ namespace ServerBackEnd.Controllers
             {
                 return BadRequest();
             }
-        }
-
-        public static string HashPassword(string password)
-        {
-            // Générer un sel (salt) aléatoire
-            byte[] salt;
-            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-            // Créer un dérivé de clé à partir du mot de passe et du sel (PBKDF2)
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
-            byte[] hash = pbkdf2.GetBytes(20);
-
-            // Combinaison du sel et du hash dans un tableau de bytes
-            byte[] hashBytes = new byte[36];
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-            Array.Copy(hash, 0, hashBytes, 16, 20);
-
-            // Conversion du tableau de bytes en une chaîne hexadécimale
-            string hashedPassword = Convert.ToBase64String(hashBytes);
-
-            return hashedPassword;
         }
 
         //public bool checkDuplicatePseudoOrEmail(/*BsonDocument newUser,*/ string newUserPseudo, string newUserEmail)
