@@ -27,9 +27,6 @@ export default function MyCollection() {
     })
     .then(data => data.json());
     setList(res);
-    res.map(gameCollec =>
-      console.log(gameCollec)
-      )
   }
 
   const DeleteToList = (id) => {

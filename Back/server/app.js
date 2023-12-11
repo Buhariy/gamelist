@@ -74,13 +74,10 @@ app.get('/search/:name', (req, res) => {
     config.url = config.url + name
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
             let data = JSON.stringify(response.data);
             data = JSON.parse(data.slice(9, (data.length - 2)));
             data.box_art_url = data.box_art_url.replace('{width}', 170)
             data.box_art_url = data.box_art_url.replace('{height}', 230)
-            console.log(data.box_art_url);
-
             res.send(data)
         })
         .catch(function (error) {
@@ -90,17 +87,7 @@ app.get('/search/:name', (req, res) => {
 })
 
 app.get('/home', async (req, res) => {
-    // axios(getGameReq)
-    //     .then(function (response) {
-    //         let data = JSON.stringify(response.data)
-    //         const filtereddata = await datafilter(data);
-    //         console.log("req 100 game");
-    //         // console.log(data.find(g => g.id == "509658"));
-    //         res.send(filtereddata)
-    //     })
-    //     .catch(function (error) {
-    //         res.send(error);
-    //     })
+   
     try {
         const response = await axios(getGameReq);
         let data = JSON.stringify(response.data);
@@ -192,8 +179,6 @@ function arrayRemove(arr, value) {
 }
 
 async function datafilter(data){
-    // data = JSON.stringify(data)
-    // console.log(Object.keys(data.data[0]).length);
     return data;
 }
 

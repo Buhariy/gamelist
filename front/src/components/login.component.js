@@ -37,7 +37,6 @@ export default function Login({ setToken }) {
                 PseudoOrEmail: form.pseudo.value,
                 password: form.password.value
             });
-            console.log(token)
             setToken(token); // Utilisez le setter provenant des props si nécessaire
         } catch (error) {
             setError(error.message)

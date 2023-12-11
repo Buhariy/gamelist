@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component, useState,useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from './components/login.component';
 import MyCollection from './components/myCollection.component'
 import Navbar from './components/navbar.component';
@@ -30,7 +30,6 @@ export default function App() {
     if (token && token.message === "connected") {
       setIsLogged(true);
       setId(token.id);
-      console.log(token.id)
     } else {
       setIsLogged(false);
     }
@@ -43,6 +42,7 @@ export default function App() {
         <div>
           <Navbar isLogged={isLogged} />
           <Routes>
+            <Route path="/" element={<Navigate replace to="/home" />} />
             <Route path='/Signin' element={<Login setToken={setToken} />} />
             <Route path='/Collection' element={<MyCollection />} />
             <Route path={'/MyProfil/'+id} element={<MyProfil />} /> 

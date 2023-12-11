@@ -14,7 +14,6 @@ export default function SearchBarResults(){
 
     useEffect(()=> {
         const searchData = location.state?.data[0];
-        console.log(searchData)
         let user = getUser();
         if (user != null && user.accessToken.length > 50) {
             setLogged(true);

@@ -4,7 +4,6 @@ const Collection = db.collection;
 const Op = db.Sequelize.Op;
 
 exports.addToCollections = async (req, res) => {
-    console.log('dans le addcollec');
     try {
        await Collection.create({
             gameId: req.body.gameId,
@@ -19,7 +18,6 @@ exports.addToCollections = async (req, res) => {
 }
 
 exports.deleteToCollection = (req,res) => {
-    console.log('dans le supCollec');
     try{
         Collection.destroy({
             where: {

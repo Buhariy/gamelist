@@ -51,6 +51,7 @@ export default function UpdateUser(){
     }
 
     const handleSubmit = async e => {
+        setMessage("");
         e.preventDefault();
         try {
             if(password != repassword){
@@ -62,11 +63,10 @@ export default function UpdateUser(){
                 'Content-Type':'application/json'
             },
             });
-            if(res.status == 200){
-                setMessage("Vos infos ont été mise à jours.");
-            }
+            setMessage("Vos infos ont étais mis à jours.");
+
         } catch (error) {
-            setMessage(error.message);
+            setMessage("Ce pseudo ou email existe déjà !");
         }
     }
 

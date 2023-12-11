@@ -12,17 +12,6 @@ function getUser() {
 
 export default function Navbar(props) {
     const [userid,setId] = useState();
-    // const [isLogged, setLogged] = useState(false);
-
-    // useEffect(() => {
-    //     sessionStorage.getItem('accessToken');
-    //     let user = getUser();
-    //     if(user != null && user.accessToken.length > 50){
-    //         setLogged(true);
-    //     }else{
-    //         setLogged(false);
-    //     }
-    // }, []);
     
     useEffect(() => {
         let user = getUser();
@@ -30,7 +19,6 @@ export default function Navbar(props) {
             setId("")
         else if(user != null)
             setId(user.id)
-        console.warn(user)
     }, []);
 
     return (

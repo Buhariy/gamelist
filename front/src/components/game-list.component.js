@@ -11,9 +11,7 @@ function getUser() {
 }
 
 async function clean(games) {
-    console.warn(games);
     let cleanedGame = games.filter(isGame)
-    console.warn(cleanedGame);
     return cleanedGame;
 }
 
@@ -70,7 +68,7 @@ export default function Gamelist() {
                 }
             });
             const data = response.data;
-            setList(data.data); // Mettre à jour la liste avec les nouvelles données reçues
+            setList(await clean(data.data)); // Mettre à jour la liste avec les nouvelles données reçues
             setPagi(data.pagination.cursor);
         } catch (error) {
             console.log(error);
@@ -85,8 +83,9 @@ export default function Gamelist() {
                 }
             });
             const data = response.data;
-            setList(data.data); // Mettre à jour la liste avec les nouvelles données reçues
+            // setList(data.data); // Mettre à jour la liste avec les nouvelles données reçues
             setPagi(data.pagination.cursor);
+            setList(await clean(data.data));
         } catch (error) {
             console.log(error);
         }
@@ -100,14 +99,11 @@ export default function Gamelist() {
             },
         });
         var games = await response.json();
-        console.log((games.data));
         setPagi(games.pagination.cursor);
         setList(games.data);
-        console.warn(await clean(games.data));
         setList(await clean(games.data));
     }
 
-    // console.log(list[0].inMyCollection);
     return (
         <>
             <div className="cardgrp">
@@ -116,7 +112,6 @@ export default function Gamelist() {
                     list.map(g => {
                         formatingGame(g)
                         return (
-                            // <React.Fragment key={g.id}>
                             <>
                                 {isLogged ?
                                     <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id} />
@@ -124,9 +119,7 @@ export default function Gamelist() {
                                     <CardGame key={g.id} name={g.name} link={g.box_art_url} gameId={g.id} NoIcon={true} />
                                 }
                             </>
-                            // </React.Fragment> 
                         );
-                        // return <p key={g.id} name={g.name} link={g.box_art_url}>{g.name}</p>
                     })
                 }
             </div>

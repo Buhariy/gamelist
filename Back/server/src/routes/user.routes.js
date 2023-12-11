@@ -1,4 +1,6 @@
-const { authJwt } = require("../middleware");
+const { authJwt} = require("../middleware");
+const { checkDuplicateEmail } = require("../middleware/verifyUpdateEmail.js");
+const { checkDuplicatePseudo } = require("../middleware/verifyUpdatePseudo.js");
 const controller = require("../controllers/user.controller");
 
 module.exports = function(app) {
@@ -12,11 +14,11 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
-  app.get(
-    "/api/test/user",
-    [authJwt.verifyToken],
-    controller.userBoard
-  );
+  app.get("/MyProfil/:id",controller.myProfil);
+  
+  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
-  app.post("/collection",controller.userBoard)
+  app.post("/collection",controller.userBoard);
+  
+  app.post("/update", checkDuplicateEmail,checkDuplicatePseudo,controller.userUpdate);
 };

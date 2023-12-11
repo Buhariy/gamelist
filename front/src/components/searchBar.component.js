@@ -28,7 +28,6 @@ export default function SearchBar() {
 
             // .then(data => data.json());
             let data = await response.json();
-            console.warn(data.data[0])
             let game = data.data[0]
             game.box_art_url = game.box_art_url.replace('{width}', 170);
             game.box_art_url = game.box_art_url.replace('{height}', 230);

@@ -4,7 +4,6 @@ const User = db.user;
 
 checkDuplicatePseudoOrEmail = (req, res, next) => {
     // Username
-    console.log(req.body);
     User.findOne({
       where: {
         pseudo: req.body.pseudo,
@@ -32,7 +31,7 @@ checkDuplicatePseudoOrEmail = (req, res, next) => {
   
         next();
       });
-    });
+    }); 
   };
 
   const verifySignUp = {
