@@ -22,21 +22,27 @@ export default function Sidebar(props) {
     const [openMenu, setOpenMenu] = useState(false);
     const [MenuSize, setMenuSize] = useState(200);
     const [Display, setDisplay] = useState("inline");
+    const [windowSize, setWindowSize] = useState({
+        with: window.innerWidth,
+        height: window.innerHeight,
+    });
 
     const toggleMenu = () => {
-        setOpenMenu(openMenu => !openMenu);
-        if (openMenu) {
-            setMenuSize(40);
-            setDisplay("none");
-        }
-        else {
-            setMenuSize(200);
-            setDisplay("inline");
+        if(windowSize.with < 768){
+            setOpenMenu(openMenu => !openMenu);
+            if (openMenu) {
+                setMenuSize(40);
+                setDisplay("none");
+            }
+            else {
+                setMenuSize(200);
+                setDisplay("inline");
+            }
         }
     }
 
     const handleClickOutside = (event) => {
-        if (divRef.current && !divRef.current.contains(event.target)) {
+        if (divRef.current && !divRef.current.contains(event.target) && windowSize.with < 768) {
             setClose();
         }
     };
@@ -53,10 +59,28 @@ export default function Sidebar(props) {
             setId("");
         else if (user != null)
             setId(user.id);
+
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+            window.addEventListener('resize', handleResize);
+
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        };
+
+        if(windowSize.with < 768){
+            setClose();
+        }
+        
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
+        
     }, []);
 
     return (
@@ -64,17 +88,17 @@ export default function Sidebar(props) {
             <IoMenu id="menuIcon" onClick={toggleMenu} />
             <ul>
                 <li>
-                    <NavLink className="iconsidebar"  id="linkIconeStyle" to={"/Home"}><FaHome className="iconsidebar" /></NavLink>
+                    <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Home"}><FaHome className="iconsidebar" /></NavLink>
                     <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/Home"}> Home </NavLink>
                 </li>
                 <li>
-                <NavLink className="iconsidebar"  id="linkIconeStyle" to={"/Top"}><FaArrowTrendUp className="iconsidebar" href="/Home" /></NavLink>
+                    <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Top"}><FaArrowTrendUp className="iconsidebar" href="/Home" /></NavLink>
                     <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/Top"}> Top 10</NavLink>
                 </li>
                 {
                     props.isLogged ?
                         <li>
-                            <NavLink className="iconsidebar"  id="linkIconeStyle" to={"/Top"}><ImBooks className="iconsidebar" href="/Home" /></NavLink>
+                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Top"}><ImBooks className="iconsidebar" href="/Home" /></NavLink>
                             <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/Collection"}> Collection</NavLink>
                         </li>
                         :
@@ -84,7 +108,7 @@ export default function Sidebar(props) {
                 {
                     props.isLogged ?
                         <li >
-                            <NavLink className="iconsidebar"  id="linkIconeStyle" to={"/Top"}><FaUserEdit className="iconsidebar" href="/Home" /></NavLink>
+                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Top"}><FaUserEdit className="iconsidebar" href="/Home" /></NavLink>
                             <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/MyProfil/" + userid}> Mon profile</NavLink>
                         </li>
                         :
