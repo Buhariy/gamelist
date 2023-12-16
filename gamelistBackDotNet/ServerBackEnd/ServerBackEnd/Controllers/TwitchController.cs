@@ -37,5 +37,17 @@ namespace ServerBackEnd.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("/Top")]
+        public async Task<IActionResult> GetTop()
+        {
+            await Console.Out.WriteLineAsync("GetTop");
+            var twitchgameres = await _twitchService.GetTop();
+            if (twitchgameres != null)
+            {
+                return Ok(twitchgameres);
+            }
+            return BadRequest();
+        }
     }
 }

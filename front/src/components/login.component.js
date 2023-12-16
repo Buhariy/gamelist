@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
-import config from "./../config/config.json"
+import config from "./../config/config.json";
+import { MdLogin } from "react-icons/md";
+import './../assets/form.css'
 
 
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:' + config.port +'/api/auth/signin', {
+    return fetch('http://localhost:' + config.port + '/api/auth/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -44,20 +46,28 @@ export default function Login({ setToken }) {
     };
 
     return (
-        <form ref={formRef} onSubmit={handleSubmit}>
-            {error && <p>{error}</p>}
-            <label>
-                <p>Pseudo</p>
-                <input type="text" name="pseudo" onChange={e => setPseudoOrMail(e.target.value)} />
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="password" name="password" onChange={e => setPassword(e.target.value)} />
-            </label>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+        <div className="FormStyle">
+            <form ref={formRef} onSubmit={handleSubmit}>
+                <div className="circle">
+                    <MdLogin className="icon" />
+                </div>
+                {error && <p>{error}</p>}
+                <div className="formCard">
+                    <label>
+                        <p className="navlinkStyle" >Pseudo</p>
+                        <input type="text" name="pseudo" onChange={e => setPseudoOrMail(e.target.value)} />
+                    </label>
+                    <label>
+                        <p className="navlinkStyle" >Password</p>
+                        <input type="password" name="password" onChange={e => setPassword(e.target.value)} />
+                    </label>
+                    <div className="divSignup">
+                        <button className="btnCTA navlinkStyle" id="btnSignup" type="submit">Se connecter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     )
 }
 

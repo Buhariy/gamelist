@@ -41,7 +41,7 @@ export default function SearchBar() {
     }
     return (
         <>
-            <input
+            <input className="input-search"
                 type="search"
                 placeholder="Search here"
                 OnEnter

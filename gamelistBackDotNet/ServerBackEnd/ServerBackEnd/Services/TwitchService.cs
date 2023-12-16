@@ -36,6 +36,27 @@ namespace ServerBackEnd.Services
             }
         }
 
+
+        public async Task<Object> GetTop()
+        {
+            HttpClient http = new HttpClient();
+
+            var req = _requestFactory.CreateHttpRequestMessage(HttpMethod.Get);
+            req.RequestUri = new Uri(req.RequestUri.ToString() + "/top?first=10");
+
+            HttpResponseMessage res = await http.SendAsync(req);
+            if (res.IsSuccessStatusCode)
+            {
+                var content = await res.Content.ReadAsStringAsync();
+                var games = JsonSerializer.Deserialize<Object>(content);
+                return games;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<Object> GetSearch(string name)
         {
             HttpClient http = new HttpClient();

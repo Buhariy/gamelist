@@ -40,5 +40,14 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+/* Style pour le conteneur du contenu principal */
+.container {
+  width: calc(100% - 200px); /* Ajustez 250px à la largeur de votre barre latérale */
+  float: right;
+  padding-left: 20px; /* Ajoutez un padding pour éviter le chevauchement */
 }

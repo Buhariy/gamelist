@@ -10,11 +10,12 @@
   
   /* On mouse-over, add a deeper shadow */
   .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
   }
   
   /* Add some padding inside the card container */
-  .container {
+  .Cardcontainer {
     padding: 2px 16px;
     /* height: 70px; */
     white-space: nowrap;
@@ -28,7 +29,7 @@
     flex-wrap: wrap;
     align-items: center;
   }
-  #acontainer {
+  #aCardcontainerr {
     overflow: auto;
     word-wrap: break-word;
     white-space: nowrap;
@@ -45,5 +46,8 @@
 
   .navigateIcon {
     font-size: 50px;
-    
+  }
+
+  .icon2:hover {
+    cursor: pointer;
   }

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CardGame from "./cardGame.component";
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md"
-import config from "./../config/config.json"
+import config from "./../config/config.json";
 
 function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
@@ -15,13 +15,13 @@ async function clean(games) {
     return cleanedGame;
 }
 
-function isGame(game){
+function isGame(game) {
     let val = "";
     let bannedGame = config.bannedGame
     val = bannedGame.find(bg => bg == game.name);
-    if(val == game.name)
+    if (val == game.name)
         return false
-    else if(val != game.name)
+    else if (val != game.name)
         return true
 }
 
@@ -42,14 +42,14 @@ export default function Gamelist() {
     }, []);
 
     async function fetchCollection() {
-        const res = await fetch('http://localhost:' + config.port +'/collection', {
+        const res = await fetch('http://localhost:' + config.port + '/collection', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ id: getUser().id })
         })
-        .then(data => data.json());
+            .then(data => data.json());
         const cleanedGame = clean(res);
         setCollecList(cleanedGame);
     }
@@ -62,7 +62,7 @@ export default function Gamelist() {
 
     async function nextPage() {
         try {
-            const response = await axios.get('http://localhost:' + config.port +'/next/' + pagi, {
+            const response = await axios.get('http://localhost:' + config.port + '/next/' + pagi, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -77,7 +77,7 @@ export default function Gamelist() {
 
     async function beforePage() {
         try {
-            const response = await axios.get('http://localhost:' + config.port +'/before/' + pagi, {
+            const response = await axios.get('http://localhost:' + config.port + '/before/' + pagi, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -92,7 +92,7 @@ export default function Gamelist() {
     }
 
     async function fetchGames() {
-        const response = await fetch('http://localhost:' + config.port +'/home', {
+        const response = await fetch('http://localhost:' + config.port + '/home', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -105,9 +105,10 @@ export default function Gamelist() {
     }
 
     return (
-        <>
+        <div>
+            <h1>Acceuil</h1>
             <div className="cardgrp">
-
+            
                 {
                     list.map(g => {
                         formatingGame(g)
@@ -131,6 +132,6 @@ export default function Gamelist() {
                     <MdOutlineNavigateNext className="navigateIcon" />
                 </button>
             </div>
-        </>
+        </div>
     );
 }

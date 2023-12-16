@@ -1,0 +1,148 @@
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  /* padding-top: 20px; */
+  background: linear-gradient(to bottom right, #5680e9, #8060d0);
+  padding-top: 0px;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 8px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  position: relative;
+  font-size: 1.1rem;
+  display: inline;
+}
+
+/* .sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+} */
+
+/* .sidebar ul li a:hover {
+  background-color: #ddd;
+} */
+
+.sidebar ul li a:hover {
+  color: #5680e9;
+  /* Texte transparent au survol */
+  background-color: white;
+  /* Fond blanc au survol */
+}
+
+
+.sidebar ul li a::before {
+  content: attr(data-text);
+  /* Utilisation du contenu du lien comme texte du pseudo-élément */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom right, #5680e9, #8060d0);
+  /* Dégradé */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: -1;
+  /* Mettre en arrière-plan derrière le texte */
+  transition: opacity 0.3s ease;
+  /* Transition pour un effet fluide */
+  opacity: 0;
+  /* Initiallement invisible */
+}
+
+.sidebar ul li a:hover::before {
+  opacity: 1;
+  /* Rendre le dégradé visible au survol */
+}
+
+.iconsidebar {
+  font-size: 1rem;
+  color: whitesmoke;
+}
+
+.iconsidebar:hover {
+  font-size: 1rem;
+  color: #5680e9;
+}
+
+.sidebar ul li:hover {
+  color: #5680e9;
+  /* Texte transparent au survol */
+  background-color: white;
+  /* Fond blanc au survol */
+}
+
+#menuIcon {
+  display: none;
+  color: whitesmoke;
+  visibility: collapse;
+}
+
+li {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.linkStyle {
+  /* visibility: hidden; */
+  display: inline;
+  margin-left: 5px;
+}
+
+@media screen and (max-width:768px) {
+  #menuIcon {
+    font-size: 40px;
+    margin-top: 2px;
+    margin-left: 2px;
+    display: inline;
+    visibility: visible;
+  }
+
+  .sidebar {
+    width: 40px;
+  }
+
+  /* .sidebar ul li a {
+    font-size: 10px;
+  } */
+
+  .iconsidebar {
+    font-size: 25px;
+    /* height: 30px;
+    width: 30px; */
+  }
+
+  .linkStyle {
+    /* visibility: hidden; */
+    display: none;
+  }
+
+  .sidebar ul li a {
+    display: none;
+  }
+
+  #linkIconeStyle {
+    text-decoration: none;
+    display: inline;
+  }
+}

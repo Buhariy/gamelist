@@ -1,5 +1,5 @@
 {
-    "port": 3000,
+    "port": 5000,
     "bannedGame":[
         "Just Chatting",
         "Music",
@@ -28,6 +28,8 @@
         "Twitch Plays",
         "Bien-être et santé",
         "Board Games",
-        "Anime World"
+        "Anime World",
+        "Special Events",
+        "Software and Game Development"
     ]
 }

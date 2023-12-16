@@ -1,0 +1,95 @@
+.btnCTA {
+  background-color: transparent;
+  border-style: solid;
+  border-width: 4px;
+  border-image: linear-gradient(to bottom right, #5680e9, #8060d0) 1;
+  box-shadow: linear-gradient(to bottom right, #5680e9, #8060d0) 1;
+  margin-right: 0.5%;
+  margin-left: 0.5%;
+}
+
+.btnCTA:hover{
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+.btnCTA:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
+
+
+.navlinkStyle {
+  background-image: linear-gradient(to bottom right, #5680e9, #8060d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; 
+  color: transparent;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: large;
+};
+
+/* Styles pour Firefox */
+@-moz-document url-prefix() {
+  .gradient-link {
+    color: #5680e9; /* couleur unie comme substitut */
+  }
+}
+
+/* Styles pour Edge et Internet Explorer */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .gradient-link {
+    color: #5680e9; /* couleur unie comme substitut */
+  }
+}
+
+#btnSignup {
+  margin-top: 1ch;
+  align-self: center;
+}
+
+.divheaderForm {
+  background: linear-gradient(to bottom right, #5680e9, #8060d0);
+  height: 2rem;
+}
+
+.FormStyle {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+  max-width: 400px;
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 7px;
+  border: 5px solid #5680e9;
+  padding: 20px;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.3);
+}
+
+.divSignup {
+  display: flex;
+  justify-content: center;
+}
+
+.circle {
+  width: 50px;
+  /* Ajustez la taille du cercle */
+  height: 50px;
+  background: linear-gradient(to bottom right, #5680e9, #8060d0);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -25px;
+  /* Ajustez la position du cercle par rapport à la carte */
+  left: calc(50% - 25px);
+  /* Centrez horizontalement */
+  border: 2px solid transparent;
+  ;
+}
+
+.icon {
+  font-size: 20px;
+  color: white;
+}

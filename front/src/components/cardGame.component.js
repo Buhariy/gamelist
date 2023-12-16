@@ -52,20 +52,20 @@ export default function CardGame(props) {
         <div class="card" key={props.id}>
             {/* <Image src="img_avatar.png" alt="Avatar" style="width:100%"> */}
             <img src={props.link} alt={props.name} />
-            <div class="container">
-                <h4 id="acontainer"><b >{props.name}</b></h4>
+            <div class="Cardcontainer">
+                <h4 id="aCardcontainer"><b >{props.name}</b></h4>
                 {props.NoIcon ?
                  null
                   : 
                     (props.inMyCollection ?
-                        <FaMinus
+                        <FaMinus className="icon2"
                             onClick={
                                 e=> handleSubmit(e, props.gameId,false)
                             }
                             />
                         :
                         <>
-                            <FaPlus
+                            <FaPlus className="icon2"
                                 onClick={
                                     // setGameId(props.gameId)
                                     e => handleSubmit(e, props.gameId,true)

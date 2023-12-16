@@ -11,6 +11,8 @@ import SearchBar from './components/searchBar.component';
 import SearchBarResults from './components/SearchBarResults.component';
 import Logout from './components/logout.component';
 import MyProfil from './components/update-user.component';
+import Sidebar from './components/sidebar.component';
+import TopGame from './components/TopGame.component';
 
 function setToken(userToken) {
   sessionStorage.setItem('accessToken', JSON.stringify(userToken))
@@ -41,6 +43,8 @@ export default function App() {
       <Router>
         <div>
           <Navbar isLogged={isLogged} />
+          <Sidebar isLogged={isLogged} />
+          <div className="container">
           <Routes>
             <Route path="/" element={<Navigate replace to="/home" />} />
             <Route path='/Signin' element={<Login setToken={setToken} />} />
@@ -49,9 +53,11 @@ export default function App() {
             {/* <Route path='/' element={<SearchBar />} /> */}
             <Route path='/result' element={<SearchBarResults/>} />
             <Route path='/Home' element={<Gamelist />} />
+            <Route path='/Top' element={<TopGame />} />
             <Route path='/Signup' element={<SignUp />} />
             <Route path='/Logout' element={<Logout onLogout={handleLogout}/>} />
           </Routes>
+          </div>
         </div>
       </Router>
   );
