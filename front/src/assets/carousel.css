@@ -5,7 +5,9 @@
 
 .carousel {
     display: flex;
+    align-items: center;
     position: relative;
+    justify-content: center;
     /* Le carousel est positionné relativement à son parent */
 }
 
@@ -97,3 +99,19 @@
     /* Border de 10px pour les points inactifs */
     border: 10px solid #2596be;
 }
+
+.btnNav {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* border-style: none; */
+    background-color:transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.navigateIcon2 {
+    font-size: 20px;
+  }

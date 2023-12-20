@@ -9,6 +9,7 @@
   background: linear-gradient(to bottom right, #5680e9, #8060d0);
   padding-top: 0px;
   transition: width 0.3s ease, height 0.3s ease;
+  z-index: 3;
 }
 
 .sidebar ul {
@@ -109,7 +110,7 @@ li {
   margin-left: 5px;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:800px) {
   #menuIcon {
     font-size: 40px;
     margin-top: 2px;

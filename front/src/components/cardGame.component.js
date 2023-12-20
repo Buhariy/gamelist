@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa"
 import './../assets/cards.css'
 import config from "./../config/config.json"
@@ -17,34 +17,34 @@ export default function CardGame(props) {
 
     useEffect(() => {
         let user = getUser();
-        if(user != null && user.accessToken.length > 50){
+        if (user != null && user.accessToken.length > 50) {
             setLogged(true);
-        }else{
+        } else {
             setLogged(false);
         }
     }, []);
 
-    const handleSubmit = (e, gameId,action) => {
+    const handleSubmit = (e, gameId, action) => {
         let user = getUser();
         if (user != null && user.id != null) {
 
             setLogged(true);
             const data = JSON.stringify({ gameId: parseInt(gameId), userId: user.id });
-            if(action){
-                const res = axios.post('http://localhost:' + config.port +'/addCollection', data, {
+            if (action) {
+                const res = axios.post('http://localhost:' + config.port + '/addCollection', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 })
-            }else if(!action){
-                const res = axios.post('http://localhost:' + config.port +'/deleteCollection', data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            props.ToDelete(props.gameId);
+            } else if (!action) {
+                const res = axios.post('http://localhost:' + config.port + '/deleteCollection', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                props.ToDelete(props.gameId);
             }
-            
+
         }
     }
 
@@ -53,22 +53,26 @@ export default function CardGame(props) {
             {/* <Image src="img_avatar.png" alt="Avatar" style="width:100%"> */}
             <img src={props.link} alt={props.name} />
             <div class="Cardcontainer">
-                <h4 id="aCardcontainer"><b >{props.name}</b></h4>
+                <p id="TittleCardcontainer">{props.name}</p>
                 {props.NoIcon ?
-                 null
-                  : 
+                    <FaMinus className="icon2" style={{ display: "none" }}
+                        onClick={
+                            e => handleSubmit(e, props.gameId, false)
+                        }
+                    />
+                    :
                     (props.inMyCollection ?
                         <FaMinus className="icon2"
                             onClick={
-                                e=> handleSubmit(e, props.gameId,false)
+                                e => handleSubmit(e, props.gameId, false)
                             }
-                            />
+                        />
                         :
                         <>
                             <FaPlus className="icon2"
                                 onClick={
                                     // setGameId(props.gameId)
-                                    e => handleSubmit(e, props.gameId,true)
+                                    e => handleSubmit(e, props.gameId, true)
                                 }
                             />
                         </>

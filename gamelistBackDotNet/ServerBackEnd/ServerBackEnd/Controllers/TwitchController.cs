@@ -49,5 +49,29 @@ namespace ServerBackEnd.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("/next/{pagi}")]
+        public async Task<IActionResult> GetNext(string pagi)
+        {
+            await Console.Out.WriteLineAsync("GetNext");
+            var twitchgameres = await _twitchService.GetNext(pagi);
+            if (twitchgameres != null)
+            {
+                return Ok(twitchgameres);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("/before/{pagi}")]
+        public async Task<IActionResult> GetBefore(string pagi)
+        {
+            await Console.Out.WriteLineAsync("GetNext");
+            var twitchgameres = await _twitchService.GetBefore(pagi);
+            if (twitchgameres != null)
+            {
+                return Ok(twitchgameres);
+            }
+            return BadRequest();
+        }
     }
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardGame from "./cardGame.component";
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md"
 import config from "./../config/config.json";
+import './../assets/cards.css'
 
 function getUser() {
     var tokenString = sessionStorage.getItem('accessToken');
@@ -105,7 +106,7 @@ export default function Gamelist() {
     }
 
     return (
-        <div>
+        <div className="Gamelist">
             <h1>Acceuil</h1>
             <div className="cardgrp">
             

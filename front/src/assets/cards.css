@@ -1,53 +1,79 @@
+.Gamelist {
+  width: 100%;
+}
+
 .card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin-right: 5px;
-    margin-top: 5px;
-    width: 170px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 170px;
+}
+
+/* .card image {
+    width: 100%;
+  } */
+
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+/* Add some padding inside the card container */
+
+.cardgrp {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.Cardcontainer {
+  padding: 2px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+#TittleCardcontainer {
+  overflow: auto;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navigationDiv {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+.navigateIcon {
+  font-size: 50px;
+}
+
+.icon2:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width:800px) {
+
+  .card {
+    width: 40%;
   }
-  
-  
-  /* On mouse-over, add a deeper shadow */
-  .card:hover {
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.3);
-    transform: scale(1.1);
+
+  .card img {
+    width: 100%;
+    height: auto;
   }
-  
-  /* Add some padding inside the card container */
-  .Cardcontainer {
-    padding: 2px 16px;
-    /* height: 70px; */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-  }
+
   .cardgrp {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  #aCardcontainerr {
-    overflow: auto;
-    word-wrap: break-word;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width: 100%;
   }
 
-  .navigationDiv {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .navigateIcon {
-    font-size: 50px;
-  }
-
-  .icon2:hover {
-    cursor: pointer;
-  }
+}

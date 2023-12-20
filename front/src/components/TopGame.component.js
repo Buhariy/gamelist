@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import axios from "axios";
 import config from "./../config/config.json";
 import './../assets/carousel.css';
@@ -38,6 +39,10 @@ export default function TopGame() {
     const [currentCardIndex2, setCurrentCardIndex2] = useState(1);
     const [currentCardIndex3, setCurrentCardIndex3] = useState(2);
     const [isLogged, setLogged] = useState(false);
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
 
     useEffect(() => {
         let user = getUser();
@@ -47,6 +52,17 @@ export default function TopGame() {
             setLogged(false);
         }
         fetchTopGame();
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+            window.addEventListener('resize', handleResize);
+
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        };
     }, []);
 
     async function fetchTopGame() {
@@ -104,18 +120,48 @@ export default function TopGame() {
         <div>
             <h1>Top 10 des jeux du moment</h1>
             <div className="carousel">
-                <button onClick={prevCard}>Previous</button>
-                {list.length > 0 && <CardGame className='slide' key={list[currentCardIndex].id} name={list[currentCardIndex].name} link={list[currentCardIndex].box_art_url} gameId={list[currentCardIndex].id} />}
-                {list.length > 0 && <CardGame key={list[currentCardIndex2].id}
-                    name={list[currentCardIndex2].name}
-                    link={list[currentCardIndex2].box_art_url}
-                    gameId={list[currentCardIndex2].id} />}
+                <button className="btnNav" onClick={prevCard}>
+                    <MdOutlineNavigateBefore className="navigateIcon2" />
+                </button>
+                {list.length > 0 && (
+                    isLogged ? (
+                        <CardGame key={list[currentCardIndex].id} name={list[currentCardIndex].name} link={list[currentCardIndex].box_art_url} gameId={list[currentCardIndex].id} />
 
-                {list.length > 0 && <CardGame key={list[currentCardIndex3].id}
-                    name={list[currentCardIndex3].name}
-                    link={list[currentCardIndex3].box_art_url}
-                    gameId={list[currentCardIndex3].id} />}
-                <button onClick={nextCard}>Next</button>
+                    ) : (
+                        <CardGame key={list[currentCardIndex].id} name={list[currentCardIndex].name} link={list[currentCardIndex].box_art_url} gameId={list[currentCardIndex].id} NoIcon={true} />
+
+                    )
+                )}
+
+                {list.length > 0 && windowSize.width > 800 && (
+                    isLogged ? (
+                        <CardGame key={list[currentCardIndex2].id} name={list[currentCardIndex2].name} link={list[currentCardIndex2].box_art_url} gameId={list[currentCardIndex2].id} />
+                    ) : (
+                        <CardGame key={list[currentCardIndex2].id} name={list[currentCardIndex2].name} link={list[currentCardIndex2].box_art_url} gameId={list[currentCardIndex2].id} NoIcon={true} />
+                    )
+                )}
+
+                {list.length > 0 && windowSize.width > 800 && (
+                    isLogged ?
+                        (
+                            <CardGame key={list[currentCardIndex3].id}
+                                name={list[currentCardIndex3].name}
+                                link={list[currentCardIndex3].box_art_url}
+                                gameId={list[currentCardIndex3].id} />
+                        ) : (
+                            <CardGame key={list[currentCardIndex3].id}
+                                name={list[currentCardIndex3].name}
+                                link={list[currentCardIndex3].box_art_url}
+                                gameId={list[currentCardIndex3].id} NoIcon={true} />
+                        )
+                )
+
+                }
+
+
+                <button className="btnNav" onClick={nextCard}>
+                    <MdOutlineNavigateNext className="navigateIcon2" />
+                </button>
             </div>
         </div>
     );

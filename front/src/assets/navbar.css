@@ -21,7 +21,6 @@
 a {
     text-decoration: none;
     color: whitesmoke;
-    margin-right: 10px;
 }
 
 .nabarDiv #RigthLi {
@@ -109,21 +108,48 @@ a {
     outline: none;
     cursor: pointer;
     border-radius: 50%;
-    position: absolute;
-    right: 0px;
-    color:red ;
     background-color:transparent;
     pointer-events: painted;  
   }
 
+  .divbtnpc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-  @media screen and (max-width:768px) {
+  .divbtnmobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+
+  @media screen and (max-width:800px) {
     .btn-search:focus ~ .input-search{
       width: 200px;
       
     }
     .input-search:focus{
       width: 200px;
-      
     }
+
+    /* #btnSearch {
+      margin-right: 100px;
+    }
+    #btnLogin {
+      margin-right: 80px;
+    }#btnSignUp {
+      margin-right: 40px;
+    }#btnLogout {
+      margin-right: 10px;
+    } */
+    
   }
+
+  /* @media screen and (max-width:932px) {
+    .search-box {
+    
+    }
+  } */

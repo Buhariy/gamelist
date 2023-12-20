@@ -76,6 +76,46 @@ namespace ServerBackEnd.Services
                 return null;
             }
         }
+
+        public async Task<Object> GetNext(string pagi)
+        {
+            HttpClient http = new HttpClient();
+
+            var req = _requestFactory.CreateHttpRequestMessage(HttpMethod.Get);
+            req.RequestUri = new Uri(req.RequestUri.ToString() + $"/top?first=100&after={pagi}");
+            await Console.Out.WriteLineAsync(req.RequestUri.ToString());
+            HttpResponseMessage res = await http.SendAsync(req);
+            if (res.IsSuccessStatusCode)
+            {
+                var content = await res.Content.ReadAsStringAsync();
+                var games = JsonSerializer.Deserialize<Object>(content);
+                return games;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<Object> GetBefore(string pagi)
+        {
+            HttpClient http = new HttpClient();
+
+            var req = _requestFactory.CreateHttpRequestMessage(HttpMethod.Get);
+            req.RequestUri = new Uri(req.RequestUri.ToString() + $"/top?first=100&before={pagi}");
+            await Console.Out.WriteLineAsync(req.RequestUri.ToString());
+            HttpResponseMessage res = await http.SendAsync(req);
+            if (res.IsSuccessStatusCode)
+            {
+                var content = await res.Content.ReadAsStringAsync();
+                var games = JsonSerializer.Deserialize<Object>(content);
+                return games;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 
     // Modèle pour la réponse JSON des jeux Twitch

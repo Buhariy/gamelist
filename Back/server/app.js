@@ -23,7 +23,7 @@ const port = 3000;
 var qs = require('qs');
 var data = qs.stringify({});
 
-var config = {
+const config = {
     method: 'get',
     url: 'https://api.twitch.tv/helix/games?name=',
     headers: {
@@ -72,15 +72,15 @@ app.use(bodyParser.json());
 
 app.get('/search/:name', (req, res) => {
     var name = req.params.name
-    config.url = config.url + name
-    console.log(req.params.name);
-    axios(config)
+    var reqconf = {...config};
+    reqconf.url = reqconf.url + name;
+    axios(reqconf)
         .then(function (response) {
             let data = JSON.stringify(response.data);
             console.log(data);
-            data = JSON.parse(data.slice(9, (data.length - 2)));
-            data.box_art_url = data.box_art_url.replace('{width}', 170)
-            data.box_art_url = data.box_art_url.replace('{height}', 230)
+            // data = JSON.parse(data.slice(9, (data.length - 2)));
+            // data.box_art_url = data.box_art_url.replace('{width}', 170)
+            // data.box_art_url = data.box_art_url.replace('{height}', 230)
             res.send(data)
         })
         .catch(function (error) {

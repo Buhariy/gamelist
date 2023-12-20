@@ -34,6 +34,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -47,7 +48,21 @@ body {
 
 /* Style pour le conteneur du contenu principal */
 .container {
-  width: calc(100% - 200px); /* Ajustez 250px à la largeur de votre barre latérale */
+  /* Ajustez 250px à la largeur de votre barre latérale */
+  width: calc(100% - 200px);
   float: right;
-  padding-left: 20px; /* Ajoutez un padding pour éviter le chevauchement */
+  /* Ajoutez un padding pour éviter le chevauchement */
+  padding-left: 20px;
+}
+
+
+@media screen and (max-width:768px) {
+  .container {
+    /* width:100%; */
+    /* margin-top: 50px; */
+    /* align-content: center; */
+    width: calc(100% - 40px);
+
+  }
+
 }

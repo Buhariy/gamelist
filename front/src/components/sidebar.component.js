@@ -14,8 +14,6 @@ function getUser() {
     return tokenString
 }
 
-
-
 export default function Sidebar(props) {
     const [userid, setId] = useState();
     const divRef = useRef(null);
@@ -28,7 +26,7 @@ export default function Sidebar(props) {
     });
 
     const toggleMenu = () => {
-        if(windowSize.with < 768){
+        if (windowSize.with < 800) {
             setOpenMenu(openMenu => !openMenu);
             if (openMenu) {
                 setMenuSize(40);
@@ -42,15 +40,17 @@ export default function Sidebar(props) {
     }
 
     const handleClickOutside = (event) => {
-        if (divRef.current && !divRef.current.contains(event.target) && windowSize.with < 768) {
+        if (divRef.current && !divRef.current.contains(event.target) && windowSize.with < 800) {
             setClose();
         }
     };
 
     const setClose = () => {
-        setDisplay("none");
-        setMenuSize(40);
-        setOpenMenu(false);
+        if (windowSize.with < 800) {
+            setDisplay("none");
+            setMenuSize(40);
+            setOpenMenu(false);
+        }
     }
 
     useEffect(() => {
@@ -72,15 +72,11 @@ export default function Sidebar(props) {
             };
         };
 
-        if(windowSize.with < 768){
-            setClose();
-        }
-        
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-        
+
     }, []);
 
     return (
@@ -98,7 +94,7 @@ export default function Sidebar(props) {
                 {
                     props.isLogged ?
                         <li>
-                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Top"}><ImBooks className="iconsidebar" href="/Home" /></NavLink>
+                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Collection"}><ImBooks className="iconsidebar" href="/Home" /></NavLink>
                             <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/Collection"}> Collection</NavLink>
                         </li>
                         :
@@ -108,7 +104,7 @@ export default function Sidebar(props) {
                 {
                     props.isLogged ?
                         <li >
-                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/Top"}><FaUserEdit className="iconsidebar" href="/Home" /></NavLink>
+                            <NavLink className="iconsidebar" id="linkIconeStyle" to={"/MyProfil/" + userid}><FaUserEdit className="iconsidebar" href="/Home" /></NavLink>
                             <NavLink className="linkStyle" onClick={setClose} style={{ display: Display }} to={"/MyProfil/" + userid}> Mon profile</NavLink>
                         </li>
                         :

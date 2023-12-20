@@ -43,7 +43,7 @@ export default function SearchBar() {
         <>
             <input className="input-search"
                 type="search"
-                placeholder="Search here"
+                placeholder="Dofus..."
                 OnEnter
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
